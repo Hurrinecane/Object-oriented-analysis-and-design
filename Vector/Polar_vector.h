@@ -1,27 +1,10 @@
 #pragma once
-#include <iostream>
 using namespace std;
 
-class Polar;
+#include <iostream>
+#include "Decart_vector.h"
 
-class Decart
-{
-	friend class Polar;
-
-public:
-	Decart(double, double);
-	Decart(const Polar&);
-
-	void Print() const;
-
-	void PolarToDecart(const Polar&);
-
-private:
-	double x;
-	double y;
-};
-
-
+class Decart;
 
 class Polar
 {

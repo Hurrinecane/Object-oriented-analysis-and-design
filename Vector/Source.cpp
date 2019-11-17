@@ -1,4 +1,10 @@
-#include "Vector.h"
+#pragma once
+using namespace std;
+
+#include <iostream>
+
+#include "Polar_vector.h"
+#include "Decart_vector.h"
 
 int main()
 {
