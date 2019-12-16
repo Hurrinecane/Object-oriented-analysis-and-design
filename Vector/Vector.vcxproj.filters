@@ -21,7 +21,10 @@
     <ClCompile Include="Polar_vector.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Decart_vector.cpp">
+    <ClCompile Include="Polar.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Decart.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +32,10 @@
     <ClInclude Include="Polar_vector.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Decart_vector.h">
+    <ClInclude Include="Polar.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Decart.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -123,12 +123,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Decart_vector.cpp" />
+    <ClCompile Include="Decart.cpp" />
+    <ClCompile Include="Polar.cpp" />
     <ClCompile Include="Polar_vector.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Decart_vector.h" />
+    <ClInclude Include="Decart.h" />
+    <ClInclude Include="Polar.h" />
     <ClInclude Include="Polar_vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

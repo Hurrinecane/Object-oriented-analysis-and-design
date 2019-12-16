@@ -2,36 +2,31 @@
 using namespace std;
 
 #include <iostream>
-
-#include "Polar_vector.h"
-#include "Decart_vector.h"
+#include "Polar.h"
 
 int main()
 {
 	setlocale(LC_ALL, "");
 
-	Polar v1(1, 0.5);
-	v1.Print();
-	{
-		Decart a(v1);
-		Polar v2(a);
-		v2.Print();
-	}
-
-	Decart d(10, 10);
+	Polar a(5, 56.5);
+	a.Print();
+	Decart d(a);
 	d.Print();
 
-	Polar v3(d);
+	a.DecartToPolar(d);
 
-	v3.Print();
-	d.PolarToDecart(v3);
-	d.Print();
+	cout << a << endl;
+	a.Print();
 
-	v3.Print();
-	v3 = v3 - v1;
-	v3.Print();
-	v3 += v1;
-	v3.Print();
+	Polar c(3, 0.5);
 
-	if (v3 >= v1) cout << "v3 >= v1" << endl;
+	cout << c << endl;
+
+	c -= a;
+
+	cout << c << endl;
+
+	cout << a[0] << " " << a[1]<<endl;
+	cin >> a;
+	a.Print();
 }
