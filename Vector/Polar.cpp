@@ -150,10 +150,8 @@ Polar& operator>>(std::istream& in, Polar& p_)
 {
 	std::cout << "¬ведите радиус: ";
 	in >> p_.pPolarCoord[0];
-	std::cout <<std::endl;
 	std::cout << "¬ведите угол в радианах: ";
 	in >> p_.pPolarCoord[1];
-	std::cout << std::endl;
 	return p_;
 }
 

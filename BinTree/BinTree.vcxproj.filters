@@ -15,21 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Tree.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
     <ClCompile Include="Source.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Polar.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Decart.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Polar.h">
+    <ClInclude Include="Tree.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Decart.h">
+    <ClInclude Include="Node.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
