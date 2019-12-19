@@ -17,6 +17,22 @@ int main()
 
 
 		tree.PrintInLine();
+		cout << tree.getMax() << endl;
+		cout << tree.getMin() << endl;
+
 		tree.Print();
 	}
+	Tree<char> t;
+	t.Push('f');
+	t.Push('g');
+	t.Push('h');
+	t.Push('i');
+	t.Push('j');
+	t.Push('a');
+	t.Push('b');
+	t.Push('c');
+	t.Push('d');
+	t.Push('e');
+
+	t.Print();
 }

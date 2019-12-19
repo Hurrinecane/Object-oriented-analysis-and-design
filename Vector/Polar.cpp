@@ -148,9 +148,7 @@ std::ostream& operator<<(std::ostream& out, const Polar& p_)
 }
 Polar& operator>>(std::istream& in, Polar& p_)
 {
-	std::cout << "¬ведите радиус: ";
 	in >> p_.pPolarCoord[0];
-	std::cout << "¬ведите угол в радианах: ";
 	in >> p_.pPolarCoord[1];
 	return p_;
 }

@@ -11,16 +11,20 @@ template <typename Type> class Tree
 public:
 	Tree();
 	Tree(Type& new_data);
+	
 	~Tree();
 	void DeleteTree(Node<Type>*&);
 
 	void Push(const Type&);
+
 	void Print() const;
-	void Print(Node<Type>*&, int) const;
+	void Print(Node<Type>*&, int, bool) const;
+	
 	void PrintInLine(Node<Type>*&) const;
 	void PrintInLine() const;
-	void getMax();
-	void getMin();
+	
+	Type getMax();
+	Type getMin();
 
 private:
 	Node<Type>* root_;
@@ -116,33 +120,37 @@ template<typename Type>
 void Tree<Type>::Print() const
 {
 	int u = 0;
+	bool border = true;
 	if (root_ == nullptr) return;
 	else
 	{
-		Print(root_->left_, ++u);
+		Print(root_->left_, ++u, border);
+		border = false;
 		for (int i = 0; i < u; ++i) cout << "|";
 		cout << root_->data_ << endl;
 		u--;
 	}
-	Print(root_->right_, ++u);
+	Print(root_->right_, ++u, border);
+	//cout << "===================================================================" << endl;
 }
 
 template<typename Type>
-void Tree<Type>::Print(Node<Type>*& node, int u) const
+void Tree<Type>::Print(Node<Type>*& node, int u, bool border) const
 {
 	if (!node) return;
 	else
 	{
-		Print(node->left_, ++u);
+		Print(node->left_, ++u, border);
 		for (int i = 0; i < u; ++i) cout << "|";
 		cout << node->data_ << endl;
+
 		u--;
 	}
-	Print(node->right_, ++u);
+	Print(node->right_, ++u, border);
 }
 
 template<typename Type>
-void Tree<Type>::PrintInLine(Node<Type>*& node) const
+void Tree<Type>::PrintInLine(Node<Type> * &node) const
 {
 	if (node)
 	{
@@ -162,17 +170,28 @@ void Tree<Type>::PrintInLine() const
 		cout << node->data_ << " ";
 		PrintInLine(node->right_);
 	}
+	cout << endl;
 }
 
 #pragma endregion
 
 template<typename Type>
-void Tree<Type>::getMax()
+Type Tree<Type>::getMax()
 {
-
+	Node<Type>* node = root_;
+	while (node->right_ != nullptr)
+	{
+		node = node->right_;
+	}
+	return node->data_;
 }
 template<typename Type>
-void Tree<Type>::getMin()
+Type Tree<Type>::getMin()
 {
-
+	Node<Type>* node = root_;
+	while (node->left_ != nullptr)
+	{
+		node = node->left_;
+	}
+	return node->data_;
 }
