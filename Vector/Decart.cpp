@@ -1,6 +1,6 @@
 #include "Decart.h"
 
-Decart::Decart(double& x_, double& y_)
+Decart::Decart(double x_, double y_)
 {
 	x = x_;
 	y = y_;

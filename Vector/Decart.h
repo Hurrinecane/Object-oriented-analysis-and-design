@@ -1,18 +1,20 @@
 #pragma once
 
+#include "Virtual.h"
+
 class Polar;
 
 #include "Polar.h"
 
-class Decart
+class Decart:public Object
 {
 	friend class Polar;
 
 public:
-	Decart(double&, double&);
+	Decart(double, double);
 	Decart(const Polar&);
 
-	void Print() const;
+	void Print() const override;
 
 	void PolarToDecart(const Polar&);
 

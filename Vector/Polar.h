@@ -1,12 +1,13 @@
 #pragma once
 
 #include <iostream>
+#include "Virtual.h"
 
 class Decart;
 
 #include "Decart.h"
 
-class Polar
+class Polar :public Object
 {
 	friend class Decart;
 
@@ -17,6 +18,8 @@ public:
 
 	~Polar();
 	Polar(const Polar&);
+
+
 
 	double operator[] (int);
 
@@ -39,7 +42,7 @@ public:
 	bool operator <= (const Polar&);
 	bool operator >= (const Polar&);
 
-	void Print() const;
+	void Print() const override;
 	   
 	void DecartToPolar(const Decart&);
 

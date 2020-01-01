@@ -9,24 +9,14 @@ int main()
 	setlocale(LC_ALL, "");
 
 	Polar a(5, 56.5);
-	a.Print();
-	Decart d(a);
-	d.Print();
 
-	a.DecartToPolar(d);
+	Decart b(1, 1);
 
-	cout << a << endl;
-	a.Print();
+	Object* d = &a;
 
-	Polar c(3, 0.5);
+	d->Print();
 
-	cout << c << endl;
+	d = &b;
 
-	c -= a;
-
-	cout << c << endl;
-
-	cout << a[0] << " " << a[1]<<endl;
-	cin >> a;
-	a.Print();
+	d->Print();
 }
