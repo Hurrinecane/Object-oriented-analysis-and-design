@@ -14,24 +14,47 @@ public:
 
 int main()
 {
+	setlocale(0, "");
 	{
-		List<int> a;
+		{
+			List<int> a;
+			List<int> b;
 
-		a.Add();
-		*a.curObject = 1;
+			a.Add();
+			*a.curObject = 1;
 
-		a.Add();
-		*a.curObject = 2;
+			a.Add();
+			int* x = a.GetObj();
+			*x = 2;
 
-		a.Add();
-		int* x = a.GetObj();
-		*x = 3;
+			b.Add();
+			*b.curObject = 3;
+
+			a.Add();
+
+			a.Print();
+
+			a = b;
+		}
+		List<Gun> b;
+		b.Add();
+		b.GetObj()->Shot();
+
+		b.Add();
+		b.curObject->Shot();
+
+		List<Gun> c;
+		c = b;
+		c.Print();
+	system("pause");
 	}
-
-	List<Gun> b;
-	b.Add();
-	b.GetObj()->Shot();
-
-	b.Add();
-	b.curObject->Shot();
+	List<int> a;
+	for (int i = 0; i < 10; i++)
+	{
+		a.Add();
+		*a.curObject = i;
+	}
+	system("cls");
+	a.Print();
+	system("pause");
 }

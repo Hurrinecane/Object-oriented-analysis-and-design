@@ -1,5 +1,11 @@
+/*6.	Ўаблон структуры данных Ц двусв€зный список (нециклический), каждый элемент списка содержит указатель на объект.
+ƒл€ ускорени€ процедуры обхода структуры данные имеетс€ динамический массив указателей на каждый 10-ый эле6мент списка (0,10,20).*/
 #pragma once
-
+#include<iostream>
+#include<vector>
+using std::cout;
+using std::endl;
+using std::vector;
 
 #include"Node.h"
 
@@ -11,13 +17,20 @@ class List
 {
 public:
 	List();
+	List(const List<Type>&);
 	~List();
+	void Free();
 
 	void Add();
-	Type* GetObj();
 
 	void Next();
 	void Prev();
+
+	void Print();
+
+	List<Type> operator= (const List<Type>&);
+
+	Type* GetObj();
 
 	Type* curObject;
 private:
@@ -32,30 +45,28 @@ inline List<Type>::List()
 }
 
 template<typename Type>
-inline List<Type>::~List()
+List<Type>::~List()
 {
-	Node<Type>* tmp = node;
-	while (tmp->next != nullptr)
-		tmp = tmp->next;
-	while (tmp->prev != nullptr)
-	{
-		tmp = tmp->prev;
-		delete tmp->next;
-		tmp->next = nullptr;
-	}
-	delete tmp;
+	this->Free();
+}
+
+template<typename Type>
+inline void List<Type>::Free()
+{
+	delete this->node;
 	node = nullptr;
 	curObject = nullptr;
 }
 
 template<typename Type>
-inline void List<Type>::Add()
+void List<Type>::Add()
 {
+
 	if (node == nullptr)
 	{
 		node = new Node<Type>;
 		node->object = new Type;
-		curObject = node->object;
+		curObject = node->object;	
 	}
 	else
 	{
@@ -96,4 +107,58 @@ inline void List<Type>::Prev()
 		node = node->prev;
 		curObject = node->object;
 	}
+}
+
+template<typename Type>
+void List<Type>::Print()
+{
+	cout << "ќбъекты списка " << this << endl;
+	while (node->next != nullptr)
+		Next();
+	cout << endl << curObject << endl;
+	while (node->prev != nullptr)
+	{
+		cout << "\t\\/" << endl;
+		Prev();
+		cout << curObject << endl;
+	}
+}
+
+template<typename Type>
+List<Type>::List(const List<Type>& other)
+{
+	node = nullptr;
+	curObject = nullptr;
+	Node<Type>* tmp = other.node;
+	while (tmp->prev != nullptr)
+		tmp = tmp->prev;
+	this->Add();
+	*node->object = *tmp->object;
+	while (tmp->next != nullptr)
+	{
+		tmp = tmp->next;
+		Add();
+		*node->object = *tmp->object;
+	}
+	curObject = node->object;
+}
+
+template<typename Type>
+List<Type> List<Type>::operator= (const List<Type>& other)
+{
+	if (this == &other) return *this;
+	Free();
+	Node<Type>* tmp = other.node;
+	while (tmp->prev != nullptr)
+		tmp = tmp->prev;
+	Add();
+	*node->object = *tmp->object;
+	while (tmp->next != nullptr)
+	{
+		tmp = tmp->next;
+		Add();
+		*node->object = *tmp->object;
+	}
+	curObject = node->object;
+	return *this;
 }

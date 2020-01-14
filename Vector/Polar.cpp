@@ -4,7 +4,7 @@
 Polar::Polar()
 {
 	std::cout << "Вызвался конструктор для: " << this << std::endl;
-	this->pPolarCoord = new double[2];
+	pPolarCoord = new double[2];
 	pPolarCoord[0] = 0;
 	pPolarCoord[1] = 0;
 }
@@ -12,15 +12,15 @@ Polar::Polar()
 Polar::Polar(double r, double ang)
 {
 	std::cout << "Вызвался конструктор для: " << this << std::endl;
-	this->pPolarCoord = new double[2];
+	pPolarCoord = new double[2];
 	pPolarCoord[0] = r;
 	pPolarCoord[1] = ang;
 }
 Polar::Polar(const Decart& coordD)
 {
 	std::cout << "Вызвался конструктор для: " << this << std::endl;
-	this->pPolarCoord = new double[2];
-	this->DecartToPolar(coordD);
+	pPolarCoord = new double[2];
+	DecartToPolar(coordD);
 }
 
 Polar::~Polar()
@@ -31,7 +31,8 @@ Polar::~Polar()
 
 Polar::Polar(const Polar& other)
 {
-	if (this->pPolarCoord == nullptr) this->pPolarCoord = new double[2];
+	if (this->pPolarCoord == nullptr)
+		pPolarCoord = new double[2];
 	std::cout << "Вызвался Конструктор копирования для: " << this << std::endl;
 	pPolarCoord[0] = other.pPolarCoord[0];
 	pPolarCoord[1] = other.pPolarCoord[1];
@@ -49,9 +50,11 @@ Polar Polar::operator = (const Polar& n_)
 {
 	if (this == &n_)
 		return *this;
-	if (this == nullptr)
+	if (this != nullptr)
+	{
+		pPolarCoord[0] = n_.pPolarCoord[0];
 		pPolarCoord[1] = n_.pPolarCoord[1];
-	pPolarCoord[0] = n_.pPolarCoord[0];
+	}
 	return *this;
 }
 
@@ -64,7 +67,7 @@ Polar Polar::operator + (Polar p_)
 	p_.DecartToPolar(a);
 	return p_;
 }
-Polar operator+(Polar p_, const Decart& d)
+Polar operator + (Polar p_, const Decart& d)
 {
 	Decart a(p_);
 	a.x += d.x;
@@ -91,7 +94,7 @@ Polar Polar::operator - (Polar p_)
 	return p_;
 }
 
-Polar operator-(Polar p_, const Decart& d_)
+Polar operator - (Polar p_, const Decart& d_)
 {
 	Decart a(p_);
 	a.x -= d_.x;

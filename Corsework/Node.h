@@ -11,6 +11,7 @@ class Node
 public:
 	Node();
 	~Node();
+	Node<Type> operator = (const Node<Type>&);
 private:
 	Type* object;
 	Node* next;
@@ -27,5 +28,26 @@ inline Node<Type>::Node()
 template<typename Type>
 inline Node<Type>::~Node()
 {
-	delete object;
+	if (this)
+	{
+		Node<Type>* tmp = this;
+		while (tmp->next != nullptr)
+			tmp = tmp->next;
+		while (tmp->prev != nullptr)
+		{
+			tmp = tmp->prev;
+			delete tmp->next->object;
+			tmp->next = nullptr;
+		}
+		delete tmp->object;
+	}
+}
+
+template<typename Type>
+Node<Type> Node<Type>::operator = (const Node<Type>& other)
+{
+	if (object)
+		delete object;
+	object = other.object;
+	return this;
 }
