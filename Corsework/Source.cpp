@@ -9,7 +9,13 @@ using std::endl;
 class Gun
 {
 public:
-	void Shot() { cout << this << " Bang" << endl; }
+	Gun()
+	{
+		static int num = 0;
+		number = num++;
+	};
+	int number;
+	void Shot() { cout << this << " Bang  ¹"<<number << endl; }
 };
 
 int main()
@@ -36,17 +42,9 @@ int main()
 
 			a = b;
 		}
-		List<Gun> b;
-		b.Add();
-		b.GetObj()->Shot();
-
-		b.Add();
-		b.curObject->Shot();
-
-		List<Gun> c;
-		c = b;
-		c.Print();
+	
 	system("pause");
+	system("cls");
 	}
 	List<int> a;
 	for (int i = 0; i < 11; i++)
@@ -54,7 +52,21 @@ int main()
 		a.Add();
 		*a.curObject = i;
 	}
-	system("cls");
 	a.Print();
+
+	a.PrintCur();
+	a.JumpBuck();
+	a.PrintCur();
+	a.JumpForvard();
+	a.PrintCur();
+
+	system("pause");
+	system("cls");
+
+	List<Gun> b;
+
+		b.Add();
+		b.GetObj()->Shot();
+
 	system("pause");
 }

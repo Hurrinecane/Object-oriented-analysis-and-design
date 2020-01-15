@@ -81,6 +81,7 @@ public:
 	void JumpBuck();
 
 	void Print();
+	void PrintCur();
 
 	List<Type> operator= (const List<Type>&);
 
@@ -90,7 +91,6 @@ public:
 private:
 	Node<Type>* node;
 	vector<Node<Type>*> fastTravel;
-	void FastTravel();
 };
 
 template<typename Type>
@@ -180,27 +180,51 @@ inline void List<Type>::Prev()
 template<typename Type>
 inline void List<Type>::JumpForvard()
 {
-
+	if (node->next)
+		for (Node<Type> * i = node->next; i != nullptr; i = i->next)
+			for (int j = 0; j < fastTravel.size(); j++)
+				if (fastTravel[j] == i)
+				{
+					node = i;
+					curObject = node->object;
+					return;
+				}
 }
 
 template<typename Type>
 inline void List<Type>::JumpBuck()
 {
+	if ( node->prev)
+		for (Node<Type> * i = node->prev; i != nullptr; i = i->prev)
+			for (int j = fastTravel.size() - 1; j >= 0; j--)
+				if (fastTravel[j] == i)
+				{
+					node = i;
+					curObject = node->object;
+					return;
+				}
 }
 
 template<typename Type>
 void List<Type>::Print()
 {
+	Node<Type>* tmp = node;
 	cout << "Объекты списка " << this << endl;
-	while (node->next != nullptr)
-		Next();
-	cout << endl << node->number << ": " << curObject << endl;
-	while (node->prev != nullptr)
+	while (tmp->next != nullptr)
+		tmp = tmp->next;
+	cout << endl << tmp->number << ": " << curObject << endl;
+	while (tmp->prev != nullptr)
 	{
 		cout << "\t\\/" << endl;
-		Prev();
-		cout << node->number << ": " << curObject << endl;
+		tmp = tmp->prev;
+		cout << tmp->number << ": " << curObject << endl;
 	}
+}
+
+template<typename Type>
+inline void List<Type>::PrintCur()
+{
+	cout << endl<<"Текущий объект: " << node->number << ": " << curObject << endl;
 }
 
 template<typename Type>
