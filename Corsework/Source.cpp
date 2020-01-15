@@ -49,7 +49,7 @@ int main()
 	system("pause");
 	}
 	List<int> a;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 11; i++)
 	{
 		a.Add();
 		*a.curObject = i;

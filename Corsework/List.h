@@ -1,5 +1,5 @@
 /*6.	Ўаблон структуры данных Ц двусв€зный список (нециклический), каждый элемент списка содержит указатель на объект.
-ƒл€ ускорени€ процедуры обхода структуры данные имеетс€ динамический массив указателей на каждый 10-ый эле6мент списка (0,10,20).*/
+ƒл€ ускорени€ процедуры обхода структуры данныx имеетс€ динамический массив указателей на каждый 10-ый элемент списка (0,10,20).*/
 #pragma once
 #include<iostream>
 #include<vector>
@@ -7,10 +7,62 @@ using std::cout;
 using std::endl;
 using std::vector;
 
-#include"Node.h"
+#pragma region Node
 
 template<typename Type>
-class Node;
+class List;
+
+template<typename Type>
+class Node
+{
+	friend List<Type>;
+public:
+	Node();
+	~Node();
+	Node<Type> operator = (const Node<Type>&);
+private:
+	unsigned int number;
+	Type* object;
+	Node* next;
+	Node* prev;
+};
+
+template<typename Type>
+inline Node<Type>::Node()
+{
+	number = 0;
+	object = nullptr;
+	next = prev = nullptr;
+}
+
+template<typename Type>
+inline Node<Type>::~Node()
+{
+	if (this)
+	{
+		Node<Type>* tmp = this;
+		while (tmp->next != nullptr)
+			tmp = tmp->next;
+		while (tmp->prev != nullptr)
+		{
+			tmp = tmp->prev;
+			delete tmp->next->object;
+			tmp->next = nullptr;
+		}
+		delete tmp->object;
+	}
+}
+
+template<typename Type>
+Node<Type> Node<Type>::operator = (const Node<Type>& other)
+{
+	if (object)
+		delete object;
+	object = other.object;
+	return *this;
+}
+
+#pragma endregion
 
 template<typename Type>
 class List
@@ -25,6 +77,8 @@ public:
 
 	void Next();
 	void Prev();
+	void JumpForvard();
+	void JumpBuck();
 
 	void Print();
 
@@ -35,6 +89,8 @@ public:
 	Type* curObject;
 private:
 	Node<Type>* node;
+	vector<Node<Type>*> fastTravel;
+	void FastTravel();
 };
 
 template<typename Type>
@@ -54,6 +110,7 @@ template<typename Type>
 inline void List<Type>::Free()
 {
 	delete this->node;
+	fastTravel.clear();
 	node = nullptr;
 	curObject = nullptr;
 }
@@ -66,7 +123,8 @@ void List<Type>::Add()
 	{
 		node = new Node<Type>;
 		node->object = new Type;
-		curObject = node->object;	
+		curObject = node->object;
+		fastTravel.push_back(node);
 	}
 	else
 	{
@@ -77,6 +135,16 @@ void List<Type>::Add()
 		tmp->prev = node;
 		node = tmp;
 		curObject = node->object;
+		for (Node<Type>* i = node; i != nullptr; i = i->next)
+		{
+			i->number = i->prev->number + 1;
+			if (i->number % 10 == 0)
+				if (fastTravel.size() < i->number / 10 + 1)
+					fastTravel.push_back(node);
+				else
+					fastTravel[i->number] = i;
+		}
+
 	}
 }
 
@@ -110,17 +178,28 @@ inline void List<Type>::Prev()
 }
 
 template<typename Type>
+inline void List<Type>::JumpForvard()
+{
+
+}
+
+template<typename Type>
+inline void List<Type>::JumpBuck()
+{
+}
+
+template<typename Type>
 void List<Type>::Print()
 {
 	cout << "ќбъекты списка " << this << endl;
 	while (node->next != nullptr)
 		Next();
-	cout << endl << curObject << endl;
+	cout << endl << node->number << ": " << curObject << endl;
 	while (node->prev != nullptr)
 	{
 		cout << "\t\\/" << endl;
 		Prev();
-		cout << curObject << endl;
+		cout << node->number << ": " << curObject << endl;
 	}
 }
 
@@ -148,10 +227,10 @@ List<Type> List<Type>::operator= (const List<Type>& other)
 {
 	if (this == &other) return *this;
 	Free();
+	Add();
 	Node<Type>* tmp = other.node;
 	while (tmp->prev != nullptr)
 		tmp = tmp->prev;
-	Add();
 	*node->object = *tmp->object;
 	while (tmp->next != nullptr)
 	{
