@@ -64,6 +64,8 @@ Node<Type> Node<Type>::operator = (const Node<Type>& other)
 
 #pragma endregion
 
+#pragma region List
+
 template<typename Type>
 class List
 {
@@ -71,22 +73,20 @@ public:
 	List();
 	List(const List<Type>&);
 	~List();
-	void Free();
+	List<Type> operator= (const List<Type>&);
 
+	void Free();
 	void Add();
 
 	void Next();
 	void Prev();
 	void JumpForvard();
-	void JumpBuck();
+	void JumpBack();
 
 	void Print();
 	void PrintCur();
 
-	List<Type> operator= (const List<Type>&);
-
 	Type* GetObj();
-
 	Type* curObject;
 private:
 	Node<Type>* node;
@@ -144,7 +144,6 @@ void List<Type>::Add()
 				else
 					fastTravel[i->number] = i;
 		}
-
 	}
 }
 
@@ -181,7 +180,7 @@ template<typename Type>
 inline void List<Type>::JumpForvard()
 {
 	if (node->next)
-		for (Node<Type> * i = node->next; i != nullptr; i = i->next)
+		for (Node<Type>* i = node->next; i != nullptr; i = i->next)
 			for (int j = 0; j < fastTravel.size(); j++)
 				if (fastTravel[j] == i)
 				{
@@ -192,10 +191,10 @@ inline void List<Type>::JumpForvard()
 }
 
 template<typename Type>
-inline void List<Type>::JumpBuck()
+inline void List<Type>::JumpBack()
 {
-	if ( node->prev)
-		for (Node<Type> * i = node->prev; i != nullptr; i = i->prev)
+	if (node->prev)
+		for (Node<Type>* i = node->prev; i != nullptr; i = i->prev)
 			for (int j = fastTravel.size() - 1; j >= 0; j--)
 				if (fastTravel[j] == i)
 				{
@@ -212,19 +211,19 @@ void List<Type>::Print()
 	cout << "Объекты списка " << this << endl;
 	while (tmp->next != nullptr)
 		tmp = tmp->next;
-	cout << endl << tmp->number << ": " << curObject << endl;
+	cout << endl << tmp->number << ": " << tmp->object << endl;
 	while (tmp->prev != nullptr)
 	{
 		cout << "\t\\/" << endl;
 		tmp = tmp->prev;
-		cout << tmp->number << ": " << curObject << endl;
+		cout << tmp->number << ": " << tmp->object<< endl;
 	}
 }
 
 template<typename Type>
 inline void List<Type>::PrintCur()
 {
-	cout << endl<<"Текущий объект: " << node->number << ": " << curObject << endl;
+	cout << endl << "Текущий объект: " << node->number << ": " << curObject << endl;
 }
 
 template<typename Type>
@@ -265,3 +264,5 @@ List<Type> List<Type>::operator= (const List<Type>& other)
 	curObject = node->object;
 	return *this;
 }
+
+#pragma endregion
